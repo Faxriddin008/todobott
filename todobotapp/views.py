@@ -2,7 +2,6 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets, permissions, renderers
 from .models import Task
-from .permissions import IsOwnerOrReadOnly
 from .serializer import TaskSerializer
 # Create your views here.
 """ /listoftask
@@ -18,7 +17,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     """get_all  and post functions"""
     queryset = Task.objects.all().order_by('-created_at')
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     @action(detail=False)
     def completed(self, request):
